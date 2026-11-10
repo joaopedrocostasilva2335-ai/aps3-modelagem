@@ -1,0 +1,19 @@
+stateDiagram-v2
+    [*] --> EmFormalizacao : candidaturaConfirmada [candidaturaElegivel] / criarContrato()
+
+    EmFormalizacao : entry / gerarTermo()
+
+    EmFormalizacao --> AguardandoAssinaturaFiep : termoGerado / enviarParaAssinatura()
+
+    state AguardandoAssinaturaFiep {
+        [*] --> SemAssinaturas
+        SemAssinaturas --> ParcialmenteAssinado : assinaturaRecebida
+    }
+
+    AguardandoAssinaturaFiep --> Ativo : assinaturaRecebida [todasAssinadas] / ativarContrato()
+    AguardandoAssinaturaFiep --> Rescindido : rescindir [motivoInformado] / registrarMotivo()
+    Ativo --> Rescindido : rescindir [motivoInformado] / registrarMotivo()
+    Ativo --> Finalizado : vigenciaEncerrada
+
+    Rescindido --> [*]
+    Finalizado --> [*]

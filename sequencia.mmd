@@ -1,0 +1,28 @@
+sequenceDiagram
+    actor Estudante
+    participant API as API da Aplicação
+    participant SC as ServicoContratos
+    participant SCand as ServicoCandidaturas
+    participant Repo as Repositorio (Supabase)
+    participant Assin as PlataformaAssinatura
+
+    Estudante->>API: POST /contratos (candidaturaId)
+    API->>SC: gerarTermo(candidaturaId)
+    SC->>SCand: verificarElegibilidade(candidaturaId)
+    SCand-->>SC: ElegibilidadeDTO
+
+    alt elegível
+        SC->>Repo: salvarContrato(contrato)
+        Repo-->>SC: ContratoDTO
+        SC-)Assin: enviarParaAssinatura(TermoDTO)
+        SC-->>API: TermoDTO
+        API-->>Estudante: 201 Created
+    else não elegível
+        SC-->>API: ElegibilidadeInvalidaException
+        API-->>Estudante: 422 Unprocessable Entity
+    end
+
+    Assin-)API: POST /webhooks/assinatura (contratoId, signatario)
+    API->>SC: registrarAssinatura(contratoId, signatario)
+    SC->>Repo: atualizarEstado(contratoId, Ativo)
+    Repo-->>SC: ContratoDTO
