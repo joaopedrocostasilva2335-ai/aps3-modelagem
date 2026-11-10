@@ -124,7 +124,7 @@ C4Container
     Rel(assin, api, "Webhook de assinatura", "HTTPS/JSON")
 ```
 
-## 5. ADR 0001 — Assinatura assíncrona via webhook
+## 5. ADR 0001 
 
 
 ### Status
