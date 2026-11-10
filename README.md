@@ -1,6 +1,6 @@
 # APS 3 — Serviço de Contratos
 
-**Aluno:** [Seu Nome]  |  **Projeto:** Gestão de Aprendizagem e Estágios da UniSenai (Grupo 6)
+**Aluno:** [João Pedro Costa Silva]  |  **Projeto:** Gestão de Aprendizagem e Estágios da UniSenai (Grupo 6)
 
 ## Funcionalidade
 Depois que a candidatura do estudante é confirmada e considerada elegível, o **Serviço de Contratos** gera o Termo de Compromisso e envia para a plataforma de assinatura externa. Quando todas as assinaturas chegam, o contrato fica **Ativo**.
